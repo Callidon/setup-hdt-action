@@ -1,0 +1,8 @@
+{
+  "name": "setup-hdt-action",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Callidon/setup-hdt-action.git",
+  "author": "Thomas Minier <tminier01@gmail.com>",
+  "license": "MIT"
+}
