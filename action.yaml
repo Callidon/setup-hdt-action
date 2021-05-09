@@ -1,10 +1,12 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Setup HDT'
+description: 'Setup the HDT C++ library in your environment'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  token:
+    description: 'GitHub token to use'
     required: true
-    default: 'World'
+  hdt-tag:  # id of input
+    description: 'Tag of the HDT release to use'
+    required: true
 outputs:
   time: # id of output
     description: 'The time we greeted you'
