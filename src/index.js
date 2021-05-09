@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const tc = require('@actions/tool-cache');
+const glob = require('@actions/glob');
 
 async function run() {
   try {
@@ -21,11 +22,16 @@ async function run() {
     core.endGroup()
 
     core.startGroup(`Extracting HDT release ${hdtTag} to ./`)
-    const hdtExtractedFolder = await tc.extractZip(hdtZipPath, './')
+    const hdtExtractedFolder = await tc.extractZip(hdtZipPath, `./${tagInfos.data.tag_name}`)
 
     core.endGroup()
 
     console.log(hdtExtractedFolder)
+
+    const patterns = ['./', hdtExtractedFolder]
+    const globber = await glob.create(patterns.join('\n'))
+    const files = await globber.glob()
+    console.log(files);
   } catch (error) {
     core.setFailed(error.message)
   }
