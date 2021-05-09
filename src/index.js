@@ -16,7 +16,7 @@ async function run() {
       tag: hdtTag
     })
   
-    core.info(tagInfos)
+    core.info(JSON.stringify(tagInfos))
   
     const hdtZipPath = await tc.downloadTool(tagInfos.zipball_url);
     core.endGroup()
