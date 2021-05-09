@@ -4,24 +4,31 @@ const tc = require('@actions/tool-cache');
 
 async function run() {
   try {
-    const githubToken = core.getInput('token');
+    const githubToken = core.getInput('token')
     const hdtTag = core.getInput('hdt-tag')
     const octokit = github.getOctokit(githubToken)
+
+    core.startGroup(`Downloading HDT release ${hdtTag}`)
   
     const tagInfos = await octokit.repos.getReleaseByTag({
       owner: 'rdfhdt',
       repo: 'hdt-cpp',
       tag: hdtTag
-    });
+    })
   
-    console.log(tagInfos);
+    core.info(tagInfos)
   
     const hdtZipPath = await tc.downloadTool(tagInfos.zipball_url);
-    const hdtExtractedFolder = await tc.extractZip(hdtZipPath, 'path/to/extract/to');
+    core.endGroup()
 
-    console.log(hdtExtractedFolder);
+    core.startGroup(`Extracting HDT release ${hdtTag} to ???`)
+    const hdtExtractedFolder = await tc.extractZip(hdtZipPath, './')
+
+    core.endGroup()
+
+    console.log(hdtExtractedFolder)
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error.message)
   }
 }
 
