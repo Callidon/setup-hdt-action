@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/Callidon/setup-hdt-action.git",
+  "scripts": {
+    "build": "ncc build src/index.js --license licenses.txt"
+  },
   "author": "Thomas Minier <tminier01@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.7",
     "@actions/github": "^4.0.0",
     "@actions/tool-cache": "^1.6.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.1",
+    "@vercel/ncc": "^0.28.5"
   }
 }
