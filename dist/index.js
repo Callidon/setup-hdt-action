@@ -9745,6 +9745,7 @@ async function run() {
     const octokit = github.getOctokit(githubToken)
 
     core.startGroup(`Downloading HDT release ${hdtTag}`)
+    core.info('Fetching release information')
   
     const tagInfos = await octokit.repos.getReleaseByTag({
       owner: 'rdfhdt',
@@ -9752,12 +9753,10 @@ async function run() {
       tag: hdtTag
     })
   
-    core.info(JSON.stringify(tagInfos))
-  
-    const hdtZipPath = await tc.downloadTool(tagInfos.zipball_url);
+    const hdtZipPath = await tc.downloadTool(`https://codeload.github.com/rdfhdt/hdt-cpp/zip/${tagInfos.data.tag_name}`);
     core.endGroup()
 
-    core.startGroup(`Extracting HDT release ${hdtTag} to ???`)
+    core.startGroup(`Extracting HDT release ${hdtTag} to ./`)
     const hdtExtractedFolder = await tc.extractZip(hdtZipPath, './')
 
     core.endGroup()
