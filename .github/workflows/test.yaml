@@ -1,0 +1,12 @@
+name: 🔎 Test
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute action
+        uses: Callidon/setup-hdt-action@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          hdt-tag: '1.3.3'
