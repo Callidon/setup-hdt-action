@@ -18,10 +18,10 @@ async function run() {
   
     core.info(JSON.stringify(tagInfos))
   
-    const hdtZipPath = await tc.downloadTool(tagInfos.zipball_url);
+    const hdtZipPath = await tc.downloadTool(tagInfos.data.zipball_url);
     core.endGroup()
 
-    core.startGroup(`Extracting HDT release ${hdtTag} to ???`)
+    core.startGroup(`Extracting HDT release ${hdtTag} to ./`)
     const hdtExtractedFolder = await tc.extractZip(hdtZipPath, './')
 
     core.endGroup()
