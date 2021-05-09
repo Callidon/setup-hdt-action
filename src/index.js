@@ -1,7 +1,7 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-const tc = require('@actions/tool-cache');
-const glob = require('@actions/glob');
+const core = require('@actions/core')
+const github = require('@actions/github')
+const tc = require('@actions/tool-cache')
+const path = require('path')
 
 async function run() {
   try {
@@ -10,28 +10,23 @@ async function run() {
     const octokit = github.getOctokit(githubToken)
 
     core.startGroup(`Downloading HDT release ${hdtTag}`)
-    core.info('Fetching release information')
+    core.info('Fetching release information from rdfhdt/hdt-cpp')
   
     const tagInfos = await octokit.repos.getReleaseByTag({
       owner: 'rdfhdt',
       repo: 'hdt-cpp',
       tag: hdtTag
     })
-  
-    const hdtZipPath = await tc.downloadTool(`https://codeload.github.com/rdfhdt/hdt-cpp/zip/${tagInfos.data.tag_name}`);
-    core.endGroup()
 
-    core.startGroup(`Extracting HDT release ${hdtTag} to ./`)
+    core.info(`Downloading release for tag ${tagInfos.data.tag_name}`)
+    const hdtZipPath = await tc.downloadTool(`https://codeload.github.com/rdfhdt/hdt-cpp/zip/${tagInfos.data.tag_name}`)
+
+    core.info(`Extracting HDT release ${hdtTag}`)
     const hdtExtractedFolder = await tc.extractZip(hdtZipPath, `./${tagInfos.data.tag_name}`)
-
+    core.info(`HDT source files successfully extracted to ${hdtExtractedFolder}`)
     core.endGroup()
 
-    console.log(hdtExtractedFolder)
-
-    const patterns = ['./', hdtExtractedFolder]
-    const globber = await glob.create(patterns.join('\n'))
-    const files = await globber.glob()
-    console.log(files);
+    core.setOutput('source-path', path.resolve(hdtExtractedFolder))
   } catch (error) {
     core.setFailed(error.message)
   }

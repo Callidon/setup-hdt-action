@@ -8,7 +8,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Execute action
+        id: setup-hdt
         uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           hdt-tag: 'v1.3.3'
+      - name: Get output from the action
+        run: echo "${{ steps.setup-hdt.outputs.source-path }}"

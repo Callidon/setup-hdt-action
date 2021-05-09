@@ -4,12 +4,12 @@ inputs:
   token:
     description: 'GitHub token to use'
     required: true
-  hdt-tag:  # id of input
+  hdt-tag:
     description: 'Tag of the HDT release to use'
     required: true
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  source-path:
+    description: 'Absolute path to the HDT source files'
 runs:
   using: 'node12'
   main: 'dist/index.js'
