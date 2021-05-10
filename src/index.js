@@ -39,6 +39,10 @@ async function run() {
       core.info(`HDT source files successfully extracted to ${sourcePath}`);
       core.endGroup();
       core.setOutput('source-path', sourcePath);
+
+      // save to cache for future executions
+      core.info('Saving HDT source files to cache');
+      await cache.saveCache(sourcesCachePaths, sourcesCacheKey);
     } else {
       core.info(`Found a cache entry for HDT version ${tagInfos.data.tag_name}, skipping download`);
       core.info(`Restoring HDT version from cache to ${sourcesCachePaths[0]}`);
