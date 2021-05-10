@@ -1,5 +1,8 @@
 name: 'Setup HDT'
 description: 'Setup the HDT C++ library in your environment'
+branding:
+  icon: 'cpu'  
+  color: 'blue'
 inputs:
   token:
     description: 'GitHub token to use'
