@@ -13,7 +13,7 @@ inputs:
   source-path:
     description: 'Custom location for storing the HDT source files'
     required: false
-    default: 'null'
+    default: './'
 outputs:
   source-path:
     description: 'Absolute path to the HDT source files'
